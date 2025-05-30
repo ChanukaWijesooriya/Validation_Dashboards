@@ -2,7 +2,7 @@
 
 ## Overview
 
-This Streamlit application serves as an internal validation tool for engineering teams to ensure data consistency between PostgreSQL (source) and Snowflake (target) pipelines. The dashboard provides dynamic validation capabilities across two critical dimensions:
+This Streamlit application serves as an internal validation tool for engineering teams to ensure data consistency between PostgreSQL (source) and Snowflake (target) pipelines. The dashboard provides dynamic validation capabilities across two important sectors:
 
 1. Volume Validation: Compares total row counts between source and target systems
 
