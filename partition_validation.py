@@ -3,9 +3,11 @@ import pandas as pd
 from pathlib import Path
 from datetime import datetime, date
 
+# Define the new base data directory
+BASE_DATA_DIR = Path("/srv/azkaban_pipelines_migration_airflow-DEVELOP/utilities/schema_data_validation_and_comparison/dag_scripts/results")
+
 def get_latest_dates(num_dates=5):
-    data_dir = Path("data")
-    dates = [d.name for d in data_dir.iterdir() if d.is_dir() and d.name.isdigit()]
+    dates = [d.name for d in BASE_DATA_DIR.iterdir() if d.is_dir() and d.name.isdigit()]
     return sorted(dates, reverse=True)[:num_dates]
 
 def format_pipeline_name(filename):
@@ -13,7 +15,7 @@ def format_pipeline_name(filename):
 
 def get_all_pipelines():
     pipelines = set()
-    for date_dir in Path("data").iterdir():
+    for date_dir in BASE_DATA_DIR.iterdir():
         if date_dir.is_dir():
             row_counts_dir = date_dir / "partition_row_counts"
             if row_counts_dir.exists():
@@ -25,7 +27,7 @@ def get_all_pipelines():
 def get_tables_for_pipeline(pipeline):
     tables = set()
     for date_str in get_latest_dates(5):
-        csv_file = Path("data") / date_str / "partition_row_counts" / f"{pipeline}_partition_row_counts_comparison_{date_str}.csv"
+        csv_file = BASE_DATA_DIR / date_str / "partition_row_counts" / f"{pipeline}_partition_row_counts_comparison_{date_str}.csv"
         if csv_file.exists():
             df = pd.read_csv(csv_file)
             tables.update(df['TABLE_NAME'].unique())
@@ -113,7 +115,7 @@ def create_partition_table():
         for pipeline in selected_pipelines:
             pretty_name = pipeline_name_map[pipeline]
             for date_str in dates:
-                csv_file = Path("data") / date_str / "partition_row_counts" / f"{pipeline}_partition_row_counts_comparison_{date_str}.csv"
+                csv_file = BASE_DATA_DIR / date_str / "partition_row_counts" / f"{pipeline}_partition_row_counts_comparison_{date_str}.csv"
                 if csv_file.exists():
                     df = pd.read_csv(csv_file)
                     if 'ROW_COUNT_NS' in df.columns and 'ROW_COUNT_PG' in df.columns:
