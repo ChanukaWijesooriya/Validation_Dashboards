@@ -244,13 +244,13 @@ def create_partition_table():
 
             # Slider with max from data
             threshold = st.slider(
-                "Move slider to filter by minimum percentage difference (%)",
-                min_value=0.0,
-                max_value=max_percent,
-                value=0.0,
-                step=0.1,
-                key="partition_threshold"
-            )
+            "Move slider to filter by minimum percentage difference (%)",
+            min_value=0.0,
+            max_value=max_percent,
+            value=0.0,
+            step=0.1,
+            key="partition_threshold"  
+        )
 
             mask = percentage_df.ge(threshold).any(axis=1)
             filtered_abnormal = st.session_state.abnormal_df[mask]

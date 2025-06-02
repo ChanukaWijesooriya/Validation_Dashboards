@@ -207,13 +207,13 @@ def create_volume_table():
         
         # Add percentage threshold slider
         threshold = st.slider(
-            "Filter by minimum percentage difference (%)",
-            min_value=0.0,
-            max_value=10.0,
-            value=0.0,
-            step=0.1,
-            key="volume_threshold"
-        )
+        "Filter by minimum percentage difference (%)",
+        min_value=0.0,
+        max_value=10.0,
+        value=0.0,
+        step=0.1,
+        key="volume_threshold"  
+    )
 
         if 'abnormal_df' in st.session_state:
             def extract_percentage(cell):

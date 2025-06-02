@@ -20,8 +20,15 @@ if 'partition_raw' not in st.session_state:
 tab1, tab2 = st.tabs(["Volume Validation", "Partition Validation"])
 
 with tab1:
+    # Clear partition-related session state when in volume tab
+    if 'partition_data' in st.session_state:
+        del st.session_state.partition_data
+    if 'partition_raw' in st.session_state:
+        del st.session_state.partition_raw
     volume_validation.create_volume_table()
 
 with tab2:
-    partition_validation.create_partition_table()
-    
+    # Clear volume-related session state when in partition tab
+    if 'volume_data' in st.session_state:
+        del st.session_state.volume_data
+    partition_validation.create_partition_table() 
