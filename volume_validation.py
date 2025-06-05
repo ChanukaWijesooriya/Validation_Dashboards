@@ -214,6 +214,13 @@ def create_volume_table():
         step=0.1,
         key="volume_threshold"  
     )
+    
+        st.markdown("""
+            **Legend:**  
+            🔴 : Difference > 2%  
+            🟡 : Difference between 1% and 2%  
+            🟢 : Difference < 1%  
+            """)
 
         if 'abnormal_df' in st.session_state:
             def extract_percentage(cell):

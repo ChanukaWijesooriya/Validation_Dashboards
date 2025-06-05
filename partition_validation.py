@@ -221,6 +221,13 @@ def create_partition_table():
 
         st.subheader("Abnormal Behavior Detection")
 
+        st.markdown("""
+            **Legend:**  
+            🔴 : Difference > 2%  
+            🟡 : Difference between 1% and 2%  
+            🟢 : Difference < 1%  
+            """)
+
         # Identify max percentage from abnormal_df
         if 'abnormal_df' in st.session_state:
             def extract_percentage(cell):
